@@ -8,6 +8,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 使用jpa模式做的映射
@@ -37,6 +38,16 @@ import java.util.Date;
 @ToString
 @EqualsAndHashCode
 public class Member implements Serializable {
+
+    /**
+     * 非数据库字段
+     * couponList：会员所又拥有的优惠卷
+     */
+    @Transient
+    @Getter
+    @Setter
+    List<Coupon> couponList;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Size(max = 20)

@@ -1,13 +1,20 @@
 package com.aaa.lee.repast.service;
 
 import com.aaa.lee.repast.base.BaseService;
+import com.aaa.lee.repast.base.ResultData;
 import com.aaa.lee.repast.mapper.MemberMapper;
 import com.aaa.lee.repast.model.Member;
+import com.aaa.lee.repast.status.StatusEnums;
 import com.aaa.lee.repast.utils.IDUtil;
 import com.aaa.lee.repast.utils.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.common.Mapper;
+
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * @Company AAA软件教育
@@ -99,6 +106,85 @@ public class MemberService extends BaseService<Member> {
 
         }
         return false;
+    }
+
+    /**
+     * @author mbm X
+     * @methodname : selectAllCouponsByMemberId
+     * @description : 查询有效优惠卷
+     * @param memberid :
+     * @return : com.aaa.lee.repast.base.ResultData
+     * @date : 2020/3/13 13:32
+     */
+    public ResultData selectAllCouponsByMemberId(Long memberid){
+
+        if(null != memberid && !memberid.equals("")){
+            List<Member> memberWithCouponList = memberMapper.selectAllCouponsByMemberId(memberid);
+            if(null != memberWithCouponList && !memberWithCouponList.equals("") && memberWithCouponList.size() > 0){
+                return new ResultData(StatusEnums.SUCCESS.getCode(),StatusEnums.SUCCESS.getMsg(),memberWithCouponList);
+            }
+        }
+        return new ResultData(StatusEnums.FAILED.getCode(),StatusEnums.FAILED.getMsg());
+    }
+
+    /**
+     * @author mbm X
+     * @methodname : selectOverdueCouponsByMemberId
+     * @description : 查询过期优惠卷
+     * @param memberid :
+     * @return : com.aaa.lee.repast.base.ResultData
+     * @date : 2020/3/13 18:06
+     */
+    public ResultData selectOverdueCouponsByMemberId(Long memberid){
+
+        if(null != memberid && !memberid.equals("")){
+            List<Member> memberWithCouponList = memberMapper.selectOverdueCouponsByMemberId(memberid);
+            if(null != memberWithCouponList && !memberWithCouponList.equals("") && memberWithCouponList.size() > 0){
+                return new ResultData(StatusEnums.SUCCESS.getCode(),StatusEnums.SUCCESS.getMsg(),memberWithCouponList);
+            }
+        }
+        return new ResultData(StatusEnums.FAILED.getCode(),StatusEnums.FAILED.getMsg());
+
+    }
+
+    /**
+     * @author mbm X
+     * @methodname : selectCountDownAndWarnByMemberId
+     * @description : 查询快到期的优惠劵
+     *      设置的是三天时间
+     * @param memberid :
+     * @return : com.aaa.lee.repast.base.ResultData
+     * @date : 2020/3/13 19:38
+     */
+    public ResultData selectCountDownAndWarnByMemberId(Long memberid){
+
+        if(null != memberid && !memberid.equals("")){
+            List<Member> memberWithCouponList = memberMapper.selectCountDownAndWarnByMemberId(memberid);
+            if(null != memberWithCouponList && !memberWithCouponList.equals("") && memberWithCouponList.size() > 0){
+                return new ResultData(StatusEnums.SUCCESS.getCode(),StatusEnums.SUCCESS.getMsg(),memberWithCouponList);
+            }
+        }
+        return new ResultData(StatusEnums.FAILED.getCode(),StatusEnums.FAILED.getMsg());
+    }
+
+    /**
+     * @author mbm X
+     * @methodname : selectAlreadyUseCoupons
+     * @description : 查询已经使用的优惠卷
+     * @param memberid :
+     * @return : com.aaa.lee.repast.base.ResultData
+     * @date : 2020/3/13 19:54
+     */
+    public ResultData selectAlreadyUseCoupons(Long memberid){
+
+        if(null != memberid && !memberid.equals("")){
+            List<Member> memberWithCouponList = memberMapper.selectAlreadyUseCoupons(memberid);
+            if(null != memberWithCouponList && !memberWithCouponList.equals("") && memberWithCouponList.size() > 0){
+                return new ResultData(StatusEnums.SUCCESS.getCode(),StatusEnums.SUCCESS.getMsg(),memberWithCouponList);
+            }
+        }
+        return new ResultData(StatusEnums.FAILED.getCode(),StatusEnums.FAILED.getMsg());
+
     }
 
 }

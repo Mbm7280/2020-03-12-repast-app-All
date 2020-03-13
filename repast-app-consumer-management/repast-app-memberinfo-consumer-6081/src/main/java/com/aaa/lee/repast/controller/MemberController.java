@@ -8,6 +8,7 @@ import com.aaa.lee.repast.service.IRepastService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -46,5 +47,59 @@ public class MemberController extends BaseController {
         }
         return super.failed();
     }
+
+    /**
+     * @author mbm X
+     * @methodname : selectAllCouponsByMemberId
+     * @description : 查询有效优惠卷
+     * @param memberid :
+     * @return : com.aaa.lee.repast.base.ResultData
+     * @date : 2020/3/13 16:25
+     */
+    @ApiOperation(value = "优惠卷查询")
+    @GetMapping("/selectCous")
+    public ResultData selectAllCouponsByMemberId(Long memberid){
+       return repastService.selectAllCouponsByMemberId(memberid);
+    }
+
+    /**
+     * @author mbm X
+     * @methodname : selectOverdueCouponsByMemberId
+     * @description : 查询过期优惠卷
+     * @param memberid :
+     * @return : com.aaa.lee.repast.base.ResultData
+     * @date : 2020/3/13 19:59
+     */
+    @GetMapping("/selectOverdueCous")
+    public ResultData selectOverdueCouponsByMemberId(Long memberid){
+        return repastService.selectOverdueCouponsByMemberId(memberid);
+    }
+
+    /**
+     * @author mbm X
+     * @methodname : selectCountDownAndWarnByMemberId
+     * @description : 查询快到期的优惠劵
+     * @param memberid :
+     * @return : com.aaa.lee.repast.base.ResultData
+     * @date : 2020/3/13 20:00
+     */
+    @GetMapping("/selectCountDownAndWarnCous")
+    public ResultData selectCountDownAndWarnByMemberId(Long memberid){
+        return repastService.selectCountDownAndWarnByMemberId(memberid);
+    }
+
+    /**
+     * @author mbm X
+     * @methodname : selectAlreadyUseCoupons
+     * @description : 查询已经使用的优惠卷
+     * @param memberid :
+     * @return : com.aaa.lee.repast.base.ResultData
+     * @date : 2020/3/13 20:00
+     */
+    @GetMapping("/selectAlreadyUseCoupons")
+    public ResultData selectAlreadyUseCoupons(Long memberid){
+        return repastService.selectCountDownAndWarnByMemberId(memberid);
+    }
+
 
 }

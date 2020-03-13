@@ -1,11 +1,14 @@
 package com.aaa.lee.repast.service;
 
+import com.aaa.lee.repast.base.ResultData;
 import com.aaa.lee.repast.fallback.RepastFallBackFactory;
 import com.aaa.lee.repast.model.LoginLog;
 import com.aaa.lee.repast.model.Member;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * @Company AAA软件教育
@@ -45,5 +48,49 @@ public interface IRepastService {
     **/
     @PostMapping("/saveLog")
     Boolean saveLog(@RequestBody LoginLog loginLog);
+
+    /**
+     * @author mbm X
+     * @methodname : selectAllCouponsByMemberId
+     * @description : 查询有效优惠卷
+     * @param memberid :
+     * @return : com.aaa.lee.repast.base.ResultData
+     * @date : 2020/3/13 16:23
+     */
+    @GetMapping("/selectCous")
+    ResultData selectAllCouponsByMemberId(@RequestParam("memberid") Long memberid);
+
+    /**
+     * @author mbm X
+     * @methodname : selectOverdueCouponsByMemberId
+     * @description : 查询过期优惠卷
+     * @param memberid :
+     * @return : com.aaa.lee.repast.base.ResultData
+     * @date : 2020/3/13 19:57
+     */
+    @GetMapping("/selectOverdueCous")
+    ResultData selectOverdueCouponsByMemberId(@RequestParam("memberid") Long memberid);
+
+    /**
+     * @author mbm X
+     * @methodname : selectCountDownAndWarnByMemberId
+     * @description : 查询快到期的优惠劵
+     * @param memberid :
+     * @return : com.aaa.lee.repast.base.ResultData
+     * @date : 2020/3/13 19:58
+     */
+    @GetMapping("/selectCountDownAndWarnCous")
+    public ResultData selectCountDownAndWarnByMemberId(@RequestParam ("memberid") Long memberid);
+
+    /**
+     * @author mbm X
+     * @methodname : selectAlreadyUseCoupons
+     * @description : 查询已经使用的优惠卷
+     * @param memberid :
+     * @return : com.aaa.lee.repast.base.ResultData
+     * @date : 2020/3/13 19:58
+     */
+    @GetMapping("/selectAlreadyUseCoupons")
+    public ResultData selectAlreadyUseCoupons(@RequestParam ("memberid") Long memberid);
 
 }

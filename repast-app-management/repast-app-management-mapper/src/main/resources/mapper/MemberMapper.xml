@@ -1,38 +1,91 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.aaa.lee.repast.mapper.MemberMapper" >
-  <resultMap id="BaseResultMap" type="com.aaa.lee.repast.model.Member" >
+
+  <resultMap id="memberWithCouponsMap" extends="BaseResultMap" type="com.aaa.lee.repast.model.Member">
+    <id column="memberid" property="id" jdbcType="BIGINT"></id>
+    <result column="membername" property="username" jdbcType="VARCHAR"></result>
+    <collection property="couponList" ofType="com.aaa.lee.repast.model.Coupon">
+      <id column="couid" property="id"></id>
+      <result column="couname" property="name"></result>
+      <result column="coutype" property="type" jdbcType="INTEGER"></result>
+      <result column="couminpoint" property="perLimit" jdbcType="DECIMAL"></result>
+      <result column="coustarttime" property="startTime" jdbcType="TIMESTAMP"></result>
+      <result column="couendtime" property="endTime" jdbcType="TIMESTAMP"></result>
+      <result column="coutype" property="useType" jdbcType="INTEGER"></result>
+      <result column="coulevel" property="memberLevel" jdbcType="INTEGER"></result>
+    </collection>
+  </resultMap>
+
+  <!-- 查询可用优惠卷 -->
+  <select id="selectAllCouponsByMemberId" resultMap="memberWithCouponsMap" parameterType="long">
+    select um.id As memberid,um.username As membername,sc.id As couid,sc.name As couname,sc.type As coutype,sc.min_point As couminpoint,
+			 sc.start_time As coustarttime,sc.end_time As couendtime,sc.use_type As coutype,sc.member_level As coulevel
+    from ums_member um
+    left join sms_coupon_member_relation scm on um.id = scm.member_id
+    left join sms_coupon sc on scm.coupon_id = sc.id
+    where (sc.start_time &lt;= CURRENT_TIMESTAMP() and sc.end_time &gt;= CURRENT_TIMESTAMP())  and um.id =#{memberid}
+  </select>
+
+  <!-- 查询过期优惠卷 -->
+  <select id="selectOverdueCouponsByMemberId" resultMap="memberWithCouponsMap" parameterType="long">
+    select um.id As memberid,um.username As membername,sc.id As couid,sc.name As couname,sc.type As coutype,sc.min_point As couminpoint,
+			 sc.start_time As coustarttime,sc.end_time As couendtime,sc.use_type As coutype,sc.member_level As coulevel
+    from ums_member um
+    left join sms_coupon_member_relation scm on um.id = scm.member_id
+    left join sms_coupon sc on scm.coupon_id = sc.id
+    where (CURDATE() >= sc.start_time and CURDATE() >= sc.end_time) and um.id =#{memberid}
+  </select>
+
+  <!-- 查询快到期的优惠劵 -->
+  <select id="selectCountDownAndWarnByMemberId" resultMap="memberWithCouponsMap" parameterType="long">
+    select um.id memberid,um.username membername,sc.id couid,sc.name couname,sc.type coutype,sc.min_point couminpoint,
+			 sc.start_time coustarttime,sc.end_time couendtime,sc.use_type coutype,sc.member_level coulevel
+    from ums_member um
+    left join sms_coupon_member_relation scm on um.id = scm.member_id
+    left join sms_coupon sc on scm.coupon_id = sc.id
+    where TIMESTAMPDIFF(DAY,CURRENT_TIMESTAMP(),sc.end_time) > 3 and um.id =#{memberid}
+  </select>
+
+  <!-- 查询已经使用的优惠卷 -->
+  <select id="selectAlreadyUseCoupons" resultMap="memberWithCouponsMap" parameterType="long">
+    select um.id memberid,um.username membername,sc.id couid,sc.name couname,sc.type coutype,sc.min_point couminpoint,
+			 sc.start_time coustarttime,sc.end_time couendtime,sc.use_type coutype,sc.member_level coulevel
+    from ums_member um
+    left join sms_coupon_member_relation scm on um.id = scm.member_id
+    left join sms_coupon sc on scm.coupon_id = sc.id
+		where um.id = #{memberid} and sc.is_apply = 0
+  </select>
+
+  <!-- 根据 openId 查询 -->
+  <select id="selectMemberByOpenId" parameterType="string" resultMap="BaseResultMap">
+    select * from ums_member where open_id = #{openId}
+  </select>
+
+  <resultMap id="BaseResultMap" type="com.aaa.lee.repast.model.Coupon" >
     <!--
       WARNING - @mbg.generated
     -->
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="shop_id" property="shopId" jdbcType="BIGINT" />
-    <result column="member_level_id" property="memberLevelId" jdbcType="BIGINT" />
-    <result column="username" property="username" jdbcType="VARCHAR" />
-    <result column="password" property="password" jdbcType="VARCHAR" />
-    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
-    <result column="phone" property="phone" jdbcType="VARCHAR" />
-    <result column="status" property="status" jdbcType="INTEGER" />
-    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="icon" property="icon" jdbcType="VARCHAR" />
-    <result column="gender" property="gender" jdbcType="INTEGER" />
-    <result column="birthday" property="birthday" jdbcType="DATE" />
-    <result column="city" property="city" jdbcType="VARCHAR" />
-    <result column="job" property="job" jdbcType="VARCHAR" />
-    <result column="personalized_signature" property="personalizedSignature" jdbcType="VARCHAR" />
-    <result column="source_type" property="sourceType" jdbcType="INTEGER" />
-    <result column="integration" property="integration" jdbcType="INTEGER" />
-    <result column="growth" property="growth" jdbcType="INTEGER" />
-    <result column="luckey_count" property="luckeyCount" jdbcType="INTEGER" />
-    <result column="history_integration" property="historyIntegration" jdbcType="INTEGER" />
-    <result column="parent_id" property="parentId" jdbcType="BIGINT" />
-    <result column="open_id" property="openId" jdbcType="VARCHAR" />
-    <result column="session_key" property="sessionKey" jdbcType="VARCHAR" />
-    <result column="token" property="token" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="platform" property="platform" jdbcType="INTEGER" />
+    <result column="count" property="count" jdbcType="INTEGER" />
+    <result column="amount" property="amount" jdbcType="DECIMAL" />
+    <result column="per_limit" property="perLimit" jdbcType="INTEGER" />
+    <result column="min_point" property="minPoint" jdbcType="DECIMAL" />
+    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="use_type" property="useType" jdbcType="INTEGER" />
+    <result column="note" property="note" jdbcType="VARCHAR" />
+    <result column="publish_count" property="publishCount" jdbcType="INTEGER" />
+    <result column="use_count" property="useCount" jdbcType="INTEGER" />
+    <result column="receive_count" property="receiveCount" jdbcType="INTEGER" />
+    <result column="enable_time" property="enableTime" jdbcType="TIMESTAMP" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="member_level" property="memberLevel" jdbcType="INTEGER" />
+    <result column="is_apply" property="isApply" jdbcType="INTEGER" />
   </resultMap>
-
-  <select id="selectMemberByOpenId" parameterType="string" resultMap="BaseResultMap">
-    select * from ums_member where open_id = #{openId}
-  </select>
 
 </mapper>
