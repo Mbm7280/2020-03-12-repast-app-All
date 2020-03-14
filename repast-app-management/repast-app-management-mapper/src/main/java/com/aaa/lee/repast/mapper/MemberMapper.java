@@ -47,4 +47,12 @@ public interface MemberMapper extends Mapper<Member> {
      */
     List<Member> selectAlreadyUseCoupons(Long memberid);
 
+    /**
+     * 根据 memberid
+     * 查询个人现有积分
+     * @param memberid
+     * @return
+     */
+    Member selectIntegrationBymemberId(Long memberid);
+
 }

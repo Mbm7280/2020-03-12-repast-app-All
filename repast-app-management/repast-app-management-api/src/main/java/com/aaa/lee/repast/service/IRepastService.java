@@ -93,4 +93,27 @@ public interface IRepastService {
     @GetMapping("/selectAlreadyUseCoupons")
     public ResultData selectAlreadyUseCoupons(@RequestParam ("memberid") Long memberid);
 
+
+    /**
+     * @author mbm X
+     * @methodname : selectIntegrationBymemberId
+     * @description : 查询个人现有积分
+     * @param memberid :
+     * @return : com.aaa.lee.repast.base.ResultData
+     * @date : 2020/3/14 10:28
+     */
+    @GetMapping("/selectIntegrationNow")
+    public ResultData selectIntegrationBymemberId(@RequestParam("memberid") Long memberid);
+
+    /**
+     * @author mbm X
+     * @methodname : selectIntegrationChangeHistoryByMemberid
+     * @description : 查询 积分历史记录
+     * @param memberid :
+     * @return : com.aaa.lee.repast.base.ResultData
+     * @date : 2020/3/14 10:29
+     */
+    @GetMapping("/selectIntegrationHistory")
+    public ResultData selectIntegrationChangeHistoryByMemberid(@RequestParam("memberid") Long memberid);
+
 }

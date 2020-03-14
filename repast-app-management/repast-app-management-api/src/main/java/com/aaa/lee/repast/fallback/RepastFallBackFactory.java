@@ -54,6 +54,18 @@ public class RepastFallBackFactory implements FallbackFactory<IRepastService> {
                 System.out.println("熔断：查询已经使用的优惠劵方法！");
                 return null;
             }
+
+            @Override
+            public ResultData selectIntegrationBymemberId(Long memberid) {
+                System.out.println("熔断：查询个人现有积分！");
+                return null;
+            }
+
+            @Override
+            public ResultData selectIntegrationChangeHistoryByMemberid(Long memberid) {
+                System.out.println("熔断：查询积分历史记录！");
+                return null;
+            }
         };
         return repastService;
     }

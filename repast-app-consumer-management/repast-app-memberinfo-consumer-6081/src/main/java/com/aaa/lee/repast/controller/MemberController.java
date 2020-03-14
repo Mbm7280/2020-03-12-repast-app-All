@@ -10,6 +10,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -71,6 +72,7 @@ public class MemberController extends BaseController {
      * @date : 2020/3/13 19:59
      */
     @GetMapping("/selectOverdueCous")
+    @ApiOperation(value = "查询过期优惠卷")
     public ResultData selectOverdueCouponsByMemberId(Long memberid){
         return repastService.selectOverdueCouponsByMemberId(memberid);
     }
@@ -84,6 +86,7 @@ public class MemberController extends BaseController {
      * @date : 2020/3/13 20:00
      */
     @GetMapping("/selectCountDownAndWarnCous")
+    @ApiOperation(value = "查询快到期的优惠劵")
     public ResultData selectCountDownAndWarnByMemberId(Long memberid){
         return repastService.selectCountDownAndWarnByMemberId(memberid);
     }
@@ -97,8 +100,23 @@ public class MemberController extends BaseController {
      * @date : 2020/3/13 20:00
      */
     @GetMapping("/selectAlreadyUseCoupons")
+    @ApiOperation(value = "查询已经使用的优惠卷")
     public ResultData selectAlreadyUseCoupons(Long memberid){
         return repastService.selectCountDownAndWarnByMemberId(memberid);
+    }
+
+    /**
+     * @author mbm X
+     * @methodname : selectIntegrationBymemberId
+     * @description : 查询个人现有积分
+     * @param memberid :
+     * @return : com.aaa.lee.repast.base.ResultData
+     * @date : 2020/3/14 10:28
+     */
+    @GetMapping("/selectIntegrationNow")
+    @ApiOperation(value = "查询个人现有积分")
+    public ResultData selectIntegrationBymemberId(Long memberid){
+        return repastService.selectIntegrationBymemberId(memberid);
     }
 
 

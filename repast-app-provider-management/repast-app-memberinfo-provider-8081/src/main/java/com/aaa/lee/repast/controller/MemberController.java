@@ -6,10 +6,7 @@ import com.aaa.lee.repast.model.Member;
 import com.aaa.lee.repast.service.LoginLogService;
 import com.aaa.lee.repast.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @Company AAA软件教育
@@ -104,6 +101,21 @@ public class MemberController {
     public ResultData selectAlreadyUseCoupons(Long memberid){
         return memberService.selectCountDownAndWarnByMemberId(memberid);
     }
+
+    /**
+     * @author mbm X
+     * @methodname : selectIntegrationBymemberId
+     * @description : 查询个人现有积分
+     * @param memberid :
+     * @return : com.aaa.lee.repast.base.ResultData
+     * @date : 2020/3/14 9:32
+     */
+    @GetMapping("/selectIntegrationNow")
+    public ResultData selectIntegrationBymemberId(Long memberid){
+        return memberService.selectIntegrationBymemberId(memberid);
+    }
+
+
 
 
 }

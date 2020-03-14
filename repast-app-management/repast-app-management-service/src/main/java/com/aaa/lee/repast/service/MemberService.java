@@ -103,7 +103,6 @@ public class MemberService extends BaseService<Member> {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
         }
         return false;
     }
@@ -185,6 +184,26 @@ public class MemberService extends BaseService<Member> {
         }
         return new ResultData(StatusEnums.FAILED.getCode(),StatusEnums.FAILED.getMsg());
 
+    }
+
+    /**
+     * @author mbm X
+     * @methodname : selectIntegrationBymemberId
+     * @description : 查询个人现有积分
+     * @param memberid :
+     * @return : com.aaa.lee.repast.base.ResultData
+     * @date : 2020/3/14 9:30
+     */
+    public ResultData selectIntegrationBymemberId(Long memberid){
+
+        if(null != memberid && !memberid.equals("")){
+            Member member = memberMapper.selectIntegrationBymemberId(memberid);
+            System.out.println("member"+member);
+            if(null != member && !member.equals("")){
+                return new ResultData(StatusEnums.SUCCESS.getCode(),StatusEnums.SUCCESS.getMsg(),member);
+            }
+        }
+        return new ResultData(StatusEnums.FAILED.getCode(),StatusEnums.FAILED.getMsg());
     }
 
 }
