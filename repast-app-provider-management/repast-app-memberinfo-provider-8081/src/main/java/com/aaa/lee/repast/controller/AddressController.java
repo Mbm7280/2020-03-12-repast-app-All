@@ -16,12 +16,12 @@ public class AddressController extends BaseController {
     @Autowired
     private AddressService addressService;
 
-
     /**
      * 根据用户id查收货地址
      * @param memberId
      * @return
      */
+
     @GetMapping("/address")
     public  ResultData selectMemberReceiveAddressByMemberid(Long memberId){
         return addressService.selectMemberReceiveAddressByMemberid(memberId);

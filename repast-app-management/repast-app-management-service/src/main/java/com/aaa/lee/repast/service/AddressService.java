@@ -32,7 +32,7 @@ public class AddressService extends BaseService<MemberReceiveAddress> {
      * @return
      */
     public ResultData selectMemberReceiveAddressByMemberid(Long memberid){
-        if (memberid !=null && memberid.equals("")){
+        if (memberid !=null){
             List<MemberReceiveAddress> memberReceiveAddressList = memberReceiveAddressMapper.selectMemberReceiveAddressByMemberid(memberid);
             if (memberReceiveAddressList !=null && memberReceiveAddressList.equals("")){
                 return new ResultData(StatusEnums.SUCCESS.getCode(),StatusEnums.SUCCESS.getMsg(),memberReceiveAddressList);
@@ -75,7 +75,5 @@ public class AddressService extends BaseService<MemberReceiveAddress> {
         int delete = getMapper().deleteByPrimaryKey(id);
         return delete>0;
     }
-
-
 
 }
