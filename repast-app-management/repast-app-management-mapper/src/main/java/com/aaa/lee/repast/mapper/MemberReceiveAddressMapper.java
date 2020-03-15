@@ -14,10 +14,10 @@ public interface MemberReceiveAddressMapper extends Mapper<MemberReceiveAddress>
     /**
      * 根据 memeberid
      * 查询收货地址
-     * @param memberid
+     * @param memberId
      * @return
      */
-    List<MemberReceiveAddress> selectMemberReceiveAddressByMemberid(Long memberid);
+    List<MemberReceiveAddress> selectMemberReceiveAddressByMemberid(Long memberId);
     /**
      * 新增收货地址
      * @param memberReceiveAddress

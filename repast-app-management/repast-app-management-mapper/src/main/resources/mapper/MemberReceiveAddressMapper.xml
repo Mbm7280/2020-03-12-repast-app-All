@@ -17,6 +17,6 @@
     <result column="detail_address" property="detailAddress" jdbcType="VARCHAR" />
   </resultMap>
   <select id="selectMemberReceiveAddressByMemberid" resultMap="BaseResultMap" parameterType="Long">
-    select * from ums_member_receive_address  where member_id = #{memberid}
+    select * from ums_member_receive_address  where member_id = #{memberId}
   </select>
 </mapper>

@@ -121,7 +121,7 @@ public interface IRepastService {
      * @return
      */
     @GetMapping("/address")
-    ResultData selectMemberReceiveAddressByMemberid (@RequestParam("memeberid") Long memberId);
+    ResultData selectMemberReceiveAddressByMemberid (@RequestParam("memeberId") Long memberId);
 
     /**
      * 新增收货地址

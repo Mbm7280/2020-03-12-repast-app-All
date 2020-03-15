@@ -19,7 +19,7 @@ public class AddressController extends BaseController {
     private IRepastService repastService;
 
     /**
-     * 查询所有收货地址
+     * 根据用户id查收货地址
      * @param memberId
      * @return
      */

@@ -23,7 +23,7 @@ public class AddressController extends BaseController {
      */
 
     @GetMapping("/address")
-    public  ResultData selectMemberReceiveAddressByMemberid(Long memberId){
+    public  ResultData selectMemberReceiveAddressByMemberid(@RequestParam("memeberId") Long memberId){
         return addressService.selectMemberReceiveAddressByMemberid(memberId);
     }
 

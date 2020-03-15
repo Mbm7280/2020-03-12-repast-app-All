@@ -28,16 +28,15 @@ public class AddressService extends BaseService<MemberReceiveAddress> {
     /**
      * 根据 memberReceiveAddress
      * 查询收货地址
-     * @param memberid
+     * @param memberId
      * @return
      */
-    public ResultData selectMemberReceiveAddressByMemberid(Long memberid){
-        if (memberid !=null){
-            List<MemberReceiveAddress> memberReceiveAddressList = memberReceiveAddressMapper.selectMemberReceiveAddressByMemberid(memberid);
-            if (memberReceiveAddressList !=null && memberReceiveAddressList.equals("")){
-                return new ResultData(StatusEnums.SUCCESS.getCode(),StatusEnums.SUCCESS.getMsg(),memberReceiveAddressList);
-            }
+    public ResultData selectMemberReceiveAddressByMemberid(Long memberId){
+        List<MemberReceiveAddress> memberReceiveAddressList = memberReceiveAddressMapper.selectMemberReceiveAddressByMemberid(memberId);
+        if (memberReceiveAddressList !=null){
+            return new ResultData(StatusEnums.SUCCESS.getCode(),StatusEnums.SUCCESS.getMsg(),memberReceiveAddressList);
         }
+
         return new ResultData(StatusEnums.FAILED.getCode(),StatusEnums.FAILED.getMsg());
     }
 
