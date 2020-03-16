@@ -55,4 +55,23 @@ public interface MemberMapper extends Mapper<Member> {
      */
     Member selectIntegrationBymemberId(Long memberid);
 
+    /**
+     * @Author zhang TF
+     * @Description
+     *          修改个人信息
+     * @Date  2020/3/15
+     * @Param [member]
+     * @return java.lang.Integer
+     **/
+    Integer updateMember(Member member);
+//    /**
+//     * @Author zhang TF
+//     * @Description
+//     *          查询个人信息
+//     * @Date  2020/3/15
+//     * @Param [memberid]
+//     * @return java.util.List<com.aaa.lee.repast.model.Member>
+//     **/
+//    List<Member> selectOneByOpenId(String openId);
+
 }

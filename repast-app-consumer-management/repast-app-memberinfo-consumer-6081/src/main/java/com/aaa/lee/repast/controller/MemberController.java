@@ -120,4 +120,35 @@ public class MemberController extends BaseController {
     }
 
 
+    /**
+     * @Author zhang TF
+     * @Description
+     *          查询个人信息
+     * @Date  2020/3/15
+     * @Param [openId]
+     * @return com.aaa.lee.repast.base.ResultData
+     **/
+    @GetMapping("/selectOneByOpenId")
+    @ApiOperation(value = "个人信息查询")
+    public ResultData selectOneByOpenId(String openId){
+        return repastService.selectOneByOpenId(openId);
+    }
+
+
+
+    /**
+     * @Author zhang TF
+     * @Description
+     *      通过对象修改个人信息
+     * @Date  2020/3/15
+     * @Param [member]
+     * @return com.aaa.lee.repast.base.ResultData
+     **/
+    @GetMapping("/updateMember")
+    @ApiOperation(value = "通过对象修改个人信息")
+    @LoginLogAnnotation(operationType = "修改操作",operationName = "修改个人信息")
+    public ResultData updateMember(Member member){
+        return repastService.updateMember(member);
+    }
+
 }

@@ -7,8 +7,11 @@ import com.aaa.lee.repast.model.Member;
 import com.aaa.lee.repast.status.StatusEnums;
 import com.aaa.lee.repast.utils.IDUtil;
 import com.aaa.lee.repast.utils.StringUtil;
+import org.apache.ibatis.annotations.Lang;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.sql.Timestamp;
@@ -205,5 +208,45 @@ public class MemberService extends BaseService<Member> {
         }
         return new ResultData(StatusEnums.FAILED.getCode(),StatusEnums.FAILED.getMsg());
     }
+
+    /**
+     * @Author zhang TF
+     * @Description
+     *          查询个人信息
+     * @Date  2020/3/15
+     * @Param [openId]
+     * @return com.aaa.lee.repast.base.ResultData
+     **/
+    public ResultData selectOneByOpenId(String openId){
+
+        if (null != openId && !openId.equals("")){
+            Member member = memberMapper.selectMemberByOpenId(openId);
+            if (null != member && !member.equals("")){
+                return new ResultData(StatusEnums.SUCCESS.getCode(),StatusEnums.SUCCESS.getMsg(),member);
+            }
+        }
+        return new ResultData(StatusEnums.FAILED.getCode(),StatusEnums.FAILED.getMsg());
+
+    }
+
+
+    /**
+     * @Author zhang TF
+     * @Description
+     *          通过对象修改个人信息
+     * @Date
+     * @Param [member]
+     * @return com.aaa.lee.repast.base.ResultData
+     **/
+    public ResultData updateMember(Member member){
+        if (null != member && !member.equals("")){
+            Integer integer = memberMapper.updateMember(member);
+            if (integer > 0 ){
+                return new ResultData(StatusEnums.SUCCESS.getCode(),StatusEnums.SUCCESS.getMsg(),integer);
+            }
+        }
+        return new ResultData(StatusEnums.FAILED.getCode(),StatusEnums.FAILED.getMsg());
+    }
+
 
 }
