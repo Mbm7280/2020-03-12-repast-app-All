@@ -4,6 +4,7 @@ import com.aaa.lee.repast.base.ResultData;
 import com.aaa.lee.repast.model.LoginLog;
 import com.aaa.lee.repast.model.Member;
 import com.aaa.lee.repast.model.MemberReceiveAddress;
+import com.aaa.lee.repast.model.ShopComment;
 import com.aaa.lee.repast.service.IRepastService;
 import feign.hystrix.FallbackFactory;
 import org.springframework.stereotype.Component;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class RepastFallBackFactory implements FallbackFactory<IRepastService> {
 
+
     @Override
     public IRepastService create(Throwable throwable) {
         IRepastService repastService = new IRepastService() {
@@ -24,13 +26,17 @@ public class RepastFallBackFactory implements FallbackFactory<IRepastService> {
             public Boolean doLogin(Member member) {
                 System.out.println("熔断登录方法！");
                 return null;
-            };
+            }
+
+            ;
 
             @Override
             public Boolean saveLog(LoginLog loginLog) {
                 System.out.println("熔断日志方法！");
                 return null;
-            };
+            }
+
+            ;
 
             @Override
             public ResultData selectAllCouponsByMemberId(Long memberid) {
@@ -80,18 +86,32 @@ public class RepastFallBackFactory implements FallbackFactory<IRepastService> {
                 System.out.println("熔断：新增收货地址！");
                 return null;
             }
+
             @Override
             public ResultData updateAddress(MemberReceiveAddress memberReceiveAddress) {
                 System.out.println("熔断：修改收货地址！");
                 return null;
             }
+
             @Override
             public ResultData delAddress(Long id) {
                 System.out.println("熔断：删除收货地址！");
                 return null;
             }
+
+            @Override
+            public ResultData AddComment(ShopComment shopComment) {
+                System.out.println("熔断：新增评价！");
+                return null;
+            }
+
+            @Override
+            public ResultData DelComment(Long id) {
+                System.out.println("熔断：删除评价！");
+                return null;
+            }
+
         };
         return repastService;
     }
-
 }

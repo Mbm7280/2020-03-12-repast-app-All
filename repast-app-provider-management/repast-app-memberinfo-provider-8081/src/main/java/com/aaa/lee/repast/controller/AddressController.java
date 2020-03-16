@@ -5,7 +5,6 @@ import com.aaa.lee.repast.base.ResultData;
 import com.aaa.lee.repast.model.MemberReceiveAddress;
 import com.aaa.lee.repast.service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,6 +12,7 @@ import java.util.List;
 
 @RestController
 public class AddressController extends BaseController {
+    public static final String memberId = "memeberId";
     @Autowired
     private AddressService addressService;
 
@@ -23,7 +23,7 @@ public class AddressController extends BaseController {
      */
 
     @GetMapping("/address")
-    public  ResultData selectMemberReceiveAddressByMemberid(@RequestParam("memeberId") Long memberId){
+    public  ResultData selectMemberReceiveAddressByMemberid(@RequestParam(value = "memberId") Long memberId){
         return addressService.selectMemberReceiveAddressByMemberid(memberId);
     }
 

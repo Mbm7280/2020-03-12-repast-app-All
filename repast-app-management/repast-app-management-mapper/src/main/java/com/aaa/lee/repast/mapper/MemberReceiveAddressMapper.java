@@ -9,7 +9,7 @@ import tk.mybatis.mapper.common.Mapper;
 import java.util.List;
 
 //这个mapper也要标识成spring管理的类
-@Repository
+@Repository(value = "收货地址")
 public interface MemberReceiveAddressMapper extends Mapper<MemberReceiveAddress> {
     /**
      * 根据 memeberid
