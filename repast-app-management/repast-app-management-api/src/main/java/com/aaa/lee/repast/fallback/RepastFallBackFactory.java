@@ -24,13 +24,13 @@ public class RepastFallBackFactory implements FallbackFactory<IRepastService> {
             public Boolean doLogin(Member member) {
                 System.out.println("熔断登录方法！");
                 return null;
-            };
+            }
 
             @Override
             public Boolean saveLog(LoginLog loginLog) {
                 System.out.println("熔断日志方法！");
                 return null;
-            };
+            }
 
             @Override
             public ResultData selectAllCouponsByMemberId(Long memberid) {
@@ -88,6 +88,18 @@ public class RepastFallBackFactory implements FallbackFactory<IRepastService> {
             @Override
             public ResultData delAddress(Long id) {
                 System.out.println("熔断：删除收货地址！");
+                return null;
+            }
+
+            @Override
+            public ResultData selectOneByOpenId(String openId) {
+                System.out.println("熔断：个人信息查询！");
+                return null;
+            }
+
+            @Override
+            public ResultData updateMember(Member member) {
+                System.out.println("熔断：个人信息修改！");
                 return null;
             }
         };

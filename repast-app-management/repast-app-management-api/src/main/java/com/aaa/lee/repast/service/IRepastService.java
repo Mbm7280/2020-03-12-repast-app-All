@@ -79,7 +79,7 @@ public interface IRepastService {
      * @date : 2020/3/13 19:58
      */
     @GetMapping("/selectCountDownAndWarnCous")
-    public ResultData selectCountDownAndWarnByMemberId(@RequestParam ("memberid") Long memberid);
+    ResultData selectCountDownAndWarnByMemberId(@RequestParam("memberid") Long memberid);
 
     /**
      * @author mbm X
@@ -90,7 +90,7 @@ public interface IRepastService {
      * @date : 2020/3/13 19:58
      */
     @GetMapping("/selectAlreadyUseCoupons")
-    public ResultData selectAlreadyUseCoupons(@RequestParam ("memberid") Long memberid);
+    ResultData selectAlreadyUseCoupons(@RequestParam("memberid") Long memberid);
 
 
     /**
@@ -102,7 +102,7 @@ public interface IRepastService {
      * @date : 2020/3/14 10:28
      */
     @GetMapping("/selectIntegrationNow")
-    public ResultData selectIntegrationBymemberId(@RequestParam("memberid") Long memberid);
+    ResultData selectIntegrationBymemberId(@RequestParam("memberid") Long memberid);
 
     /**
      * @author mbm X
@@ -113,7 +113,7 @@ public interface IRepastService {
      * @date : 2020/3/14 10:29
      */
     @GetMapping("/selectIntegrationHistory")
-    public ResultData selectIntegrationChangeHistoryByMemberid(@RequestParam("memberid") Long memberid);
+    ResultData selectIntegrationChangeHistoryByMemberid(@RequestParam("memberid") Long memberid);
 
     /**
      * 根据用户id查收货地址
@@ -146,4 +146,27 @@ public interface IRepastService {
      */
     @GetMapping("/delAddress/{id}")
     ResultData delAddress(@PathVariable("id")Long id);
+
+    /**
+     * @Author zhang TF
+     * @Description
+     *          查询个人信息
+     * @Date  2020/3/15
+     * @Param [memberid]
+     * @return com.aaa.lee.repast.base.ResultData
+     **/
+    @GetMapping("/selectOneByOpenId")
+    ResultData selectOneByOpenId(@RequestParam("openId") String openId);
+
+
+    /**
+     * @Author zhang TF
+     * @Description
+     *          通过对象修改个人信息
+     * @Date  2020/3/15
+     * @Param [member]
+     * @return com.aaa.lee.repast.base.ResultData
+     **/
+    @GetMapping("/updateMember")
+    ResultData updateMember(@RequestBody Member member);
 }

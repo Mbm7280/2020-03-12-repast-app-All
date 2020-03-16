@@ -115,7 +115,31 @@ public class MemberController {
         return memberService.selectIntegrationBymemberId(memberid);
     }
 
+    /**
+     * @Author zhang TF
+     * @Description
+     *          查询个人信息
+     * @Date  2020/3/15
+     * @Param [openId]
+     * @return com.aaa.lee.repast.base.ResultData
+     **/
+    @GetMapping("/selectOneByOpenId")
+    public ResultData selectOneByOpenId(String openId){
+        return memberService.selectOneByOpenId(openId);
+    }
 
 
+    /**
+     * @Author zhang TF
+     * @Description
+     *          通过对象修改个人信息
+     * @Date  2020/3/15
+     * @Param [member]
+     * @return com.aaa.lee.repast.base.ResultData
+     **/
+    @GetMapping("/updateMember")
+    public ResultData updateMember(Member member){
+        return memberService.updateMember(member);
+    }
 
 }
