@@ -4,11 +4,9 @@ import com.aaa.lee.repast.base.ResultData;
 import com.aaa.lee.repast.fallback.RepastFallBackFactory;
 import com.aaa.lee.repast.model.LoginLog;
 import com.aaa.lee.repast.model.Member;
+import com.aaa.lee.repast.model.MemberReceiveAddress;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @Company AAA软件教育
@@ -115,6 +113,38 @@ public interface IRepastService {
      */
     @GetMapping("/selectIntegrationHistory")
     public ResultData selectIntegrationChangeHistoryByMemberid(@RequestParam("memberid") Long memberid);
+
+    /**
+     * 根据用户id查收货地址
+     * @param id
+     * @return
+     */
+    @GetMapping("/address")
+    ResultData selectMemberReceiveAddressByMemberid (@RequestParam("memeberId") Long memberId);
+
+    /**
+     * 新增收货地址
+     * @param memberReceiveAddress
+     * @return
+     */
+    @PostMapping("/addAddress")
+    ResultData AddAddress(MemberReceiveAddress memberReceiveAddress);
+
+    /**
+     *修改收货地址
+     * @param memberReceiveAddress
+     * @return
+     */
+    @PostMapping("/updateAddress")
+    ResultData updateAddress(MemberReceiveAddress memberReceiveAddress);
+
+    /**
+     * 根据收货地址id删除
+     * @param id
+     * @return
+     */
+    @GetMapping("/delAddress/{id}")
+    ResultData delAddress(@PathVariable("id")Long id);
 
     /**
      * @Author zhang TF

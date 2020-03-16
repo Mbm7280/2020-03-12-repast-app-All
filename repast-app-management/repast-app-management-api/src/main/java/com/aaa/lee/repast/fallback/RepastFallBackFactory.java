@@ -69,6 +69,18 @@ public class RepastFallBackFactory implements FallbackFactory<IRepastService> {
             }
 
             @Override
+            public ResultData selectOneByOpenId(String openId) {
+                System.out.println("熔断：个人信息查询！");
+                return null;
+            }
+
+            @Override
+            public ResultData updateMember(Member member) {
+                System.out.println("熔断：个人信息修改！");
+                return null;
+            }
+
+            @Override
             public ResultData selectMemberReceiveAddressByMemberid(Long memberId) {
                 System.out.println("熔断：根据用户id查收货地址！");
                 return null;
