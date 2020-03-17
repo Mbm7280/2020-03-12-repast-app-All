@@ -1,11 +1,12 @@
 package com.aaa.lee.repast.service;
 
 import com.aaa.lee.repast.base.ResultData;
+import com.aaa.lee.repast.fallback.RepastFallBackFactory;
 import com.aaa.lee.repast.model.LoginLog;
 import com.aaa.lee.repast.model.Member;
 import com.aaa.lee.repast.model.MemberReceiveAddress;
-import com.aaa.lee.repast.model.ShopComment;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -78,7 +79,7 @@ public interface IRepastService {
      * @date : 2020/3/13 19:58
      */
     @GetMapping("/selectCountDownAndWarnCous")
-     ResultData selectCountDownAndWarnByMemberId(@RequestParam ("memberid") Long memberid);
+    ResultData selectCountDownAndWarnByMemberId(@RequestParam("memberid") Long memberid);
 
     /**
      * @author mbm X
@@ -89,7 +90,7 @@ public interface IRepastService {
      * @date : 2020/3/13 19:58
      */
     @GetMapping("/selectAlreadyUseCoupons")
-     ResultData selectAlreadyUseCoupons(@RequestParam ("memberid") Long memberid);
+    ResultData selectAlreadyUseCoupons(@RequestParam("memberid") Long memberid);
 
 
     /**
@@ -101,7 +102,7 @@ public interface IRepastService {
      * @date : 2020/3/14 10:28
      */
     @GetMapping("/selectIntegrationNow")
-     ResultData selectIntegrationBymemberId(@RequestParam("memberid") Long memberid);
+    ResultData selectIntegrationBymemberId(@RequestParam("memberid") Long memberid);
 
     /**
      * @author mbm X
@@ -112,11 +113,11 @@ public interface IRepastService {
      * @date : 2020/3/14 10:29
      */
     @GetMapping("/selectIntegrationHistory")
-     ResultData selectIntegrationChangeHistoryByMemberid(@RequestParam("memberid") Long memberid);
+    ResultData selectIntegrationChangeHistoryByMemberid(@RequestParam("memberid") Long memberid);
 
     /**
      * 根据用户id查收货地址
-     * @param memberId
+     * @param id
      * @return
      */
     @GetMapping("/address")
@@ -147,18 +148,25 @@ public interface IRepastService {
     ResultData delAddress(@PathVariable("id")Long id);
 
     /**
-     * 新增评价
-     * @param shopComment
-     * @return
-     */
-    @PostMapping("/AddComment")
-    ResultData AddComment(ShopComment shopComment);
+     * @Author zhang TF
+     * @Description
+     *          查询个人信息
+     * @Date  2020/3/15
+     * @Param [memberid]
+     * @return com.aaa.lee.repast.base.ResultData
+     **/
+    @GetMapping("/selectOneByOpenId")
+    ResultData selectOneByOpenId(@RequestParam("openId") String openId);
+
 
     /**
-     * 删除评价
-     * @param id
-     * @return
-     */
-    @GetMapping("/DelComment/{id}")
-    ResultData DelComment(@PathVariable("id") Long id);
+     * @Author zhang TF
+     * @Description
+     *          通过对象修改个人信息
+     * @Date  2020/3/15
+     * @Param [member]
+     * @return com.aaa.lee.repast.base.ResultData
+     **/
+    @GetMapping("/updateMember")
+    ResultData updateMember(@RequestBody Member member);
 }
