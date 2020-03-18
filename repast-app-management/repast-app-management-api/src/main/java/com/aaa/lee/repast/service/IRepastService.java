@@ -5,6 +5,7 @@ import com.aaa.lee.repast.fallback.RepastFallBackFactory;
 import com.aaa.lee.repast.model.LoginLog;
 import com.aaa.lee.repast.model.Member;
 import com.aaa.lee.repast.model.MemberReceiveAddress;
+import com.aaa.lee.repast.model.ShopComment;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
@@ -169,4 +170,20 @@ public interface IRepastService {
      **/
     @GetMapping("/updateMember")
     ResultData updateMember(@RequestBody Member member);
+
+
+    /**
+     * 新增评价
+     * @param shopComment
+     * @return
+     */
+    @PostMapping("/AddComment")
+    ResultData AddComment(ShopComment shopComment);
+    /**
+     * 删除评价
+     * @param id
+     * @return
+     */
+    @GetMapping("/DelComment/{id}")
+    ResultData DelComment(@PathVariable("id") Long id);
 }

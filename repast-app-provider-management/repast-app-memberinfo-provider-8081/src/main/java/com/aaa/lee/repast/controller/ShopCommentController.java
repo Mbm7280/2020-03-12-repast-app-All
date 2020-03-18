@@ -23,7 +23,7 @@ public class ShopCommentController extends BaseController {
     @PostMapping("/AddComment")
     public ResultData AddComment(@RequestBody ShopComment shopComment){
         Boolean a = shopCommentService.AddComment(shopComment);
-        if (a ){
+        if (a){
             return super.operationSuccess();
         }else {
             return super.operationFailed();

@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 public class AddressController extends BaseController {
+
     public static final String memberId = "memeberId";
     @Autowired
     private AddressService addressService;
@@ -23,7 +24,7 @@ public class AddressController extends BaseController {
      */
 
     @GetMapping("/address")
-    public  ResultData selectMemberReceiveAddressByMemberid(@RequestParam(value = "memberId") Long memberId){
+    public  ResultData selectMemberReceiveAddressByMemberid(@RequestParam("memberId") Long memberId){
         return addressService.selectMemberReceiveAddressByMemberid(memberId);
     }
 

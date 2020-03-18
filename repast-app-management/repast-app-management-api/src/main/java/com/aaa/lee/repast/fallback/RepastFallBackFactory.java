@@ -4,6 +4,7 @@ import com.aaa.lee.repast.base.ResultData;
 import com.aaa.lee.repast.model.LoginLog;
 import com.aaa.lee.repast.model.Member;
 import com.aaa.lee.repast.model.MemberReceiveAddress;
+import com.aaa.lee.repast.model.ShopComment;
 import com.aaa.lee.repast.service.IRepastService;
 import feign.hystrix.FallbackFactory;
 import org.springframework.stereotype.Component;
@@ -100,6 +101,18 @@ public class RepastFallBackFactory implements FallbackFactory<IRepastService> {
             @Override
             public ResultData updateMember(Member member) {
                 System.out.println("熔断：个人信息修改！");
+                return null;
+            }
+
+            @Override
+            public ResultData AddComment(ShopComment shopComment) {
+                System.out.println("熔断：新增商品评价！");
+                return null;
+            }
+
+            @Override
+            public ResultData DelComment(Long id) {
+                System.out.println("熔断：删除商品评价！");
                 return null;
             }
         };
