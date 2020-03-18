@@ -72,6 +72,6 @@ public interface MemberMapper extends Mapper<Member> {
 //     * @Param [memberid]
 //     * @return java.util.List<com.aaa.lee.repast.model.Member>
 //     **/
-//    List<Member> selectOneByOpenId(String openId);
+      List<Member> selectOneByOpenId(String openId);
 
 }
