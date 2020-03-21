@@ -240,9 +240,13 @@ public class MemberService extends BaseService<Member> {
      **/
     public ResultData updateMember(Member member){
         if (null != member && !member.equals("")){
-            Integer integer = memberMapper.updateMember(member);
-            if (integer > 0 ){
-                return new ResultData(StatusEnums.SUCCESS.getCode(),StatusEnums.SUCCESS.getMsg(),integer);
+            try {
+                Integer update = update(member);
+                if (update > 0 ){
+                    return new ResultData(StatusEnums.UPDATE_OPERATION.getCode(),StatusEnums.UPDATE_OPERATION.getMsg(),update);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
         return new ResultData(StatusEnums.FAILED.getCode(),StatusEnums.FAILED.getMsg());
